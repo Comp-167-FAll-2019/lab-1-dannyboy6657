@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  * @author CCannon
  */
 public class ContactsApp extends Application {
-    private static ArrayList<Contact> contacts;
+    private static ArrayList<Contacts> contacts;
     private static ObservableList<String> contactNames;
     
     @Override
@@ -46,10 +46,10 @@ public class ContactsApp extends Application {
         viewContactButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                Contact selectedContact = contacts.get(contactListView.getSelectionModel().getSelectedIndex());
+                Contacts selectedContact = contacts.get(contactListView.getSelectionModel().getSelectedIndex());
                 
                 Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle(selectedContact.getFirstName() + "'s Contact Details");
+                alert.setTitle(selectedContact.getFirstName() + "'s contact details");
                 alert.setHeaderText(null);
                 alert.setContentText(selectedContact.toString());
                 
@@ -83,7 +83,7 @@ public class ContactsApp extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        loadContacts(args[1]);
+        loadContacts(args[0]);
         launch(args);
     }
     
@@ -96,7 +96,8 @@ public class ContactsApp extends Application {
             
             while(contactReader.hasNext()) {
                 String[] contactString = contactReader.nextLine().split(",");
-                Contact newContact = new Contact(contactString[0], contactString[1], contactString[2], contactString[3]);
+                Contacts newContact;
+                newContact = new Contacts(contactString[0], contactString[1], contactString[2], contactString[3]);
                 contacts.add(newContact);
                 names.add(newContact.getFirstName() + " " + newContact.getLastName());
             }
